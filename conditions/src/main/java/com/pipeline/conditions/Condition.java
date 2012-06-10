@@ -15,6 +15,8 @@
  */
 package com.pipeline.conditions;
 
+import java.util.Collection;
+
 /**
  * @author Travis Rasor
  */
@@ -26,5 +28,30 @@ public class Condition {
 
     public static ObjectCondition that(Object obj) {
         return new ObjectCondition(obj);
+    }
+
+    public static CollectionCondition that(Collection<?> collection) {
+        return new CollectionCondition(collection);
+    }
+
+    public static StringCondition that(String string) {
+        return new StringCondition(string);
+    }
+
+    public BooleanCondition andThat(boolean expression) {
+        return new BooleanCondition(expression);
+    }
+
+    public ObjectCondition andThat(Object obj) {
+        return new ObjectCondition(obj);
+    }
+
+    public CollectionCondition andThat(Collection<?> collection) {
+        return new CollectionCondition(collection);
+    }
+
+    public StringCondition andThat(String string) {
+        Condition.that((Object) string).isNotNull();
+        return new StringCondition(string);
     }
 }

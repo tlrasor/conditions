@@ -51,4 +51,16 @@ public class CollectionCondition extends Condition {
             throw new ConditionViolationException("collection violated condition by of incorrect size");
         return this;
     }
+
+    public CollectionCondition areAllNotNull() {
+        for (Object o : collection)
+            Condition.that(o).isNotNull();
+        return this;
+    }
+
+    public CollectionCondition containsNoNulls() {
+        for (Object o : collection)
+            Condition.that(o).isNotNull();
+        return this;
+    }
 }

@@ -34,9 +34,52 @@ public class StringCondition extends Condition {
         return this;
     }
 
-    public StringCondition isAllAplha() {
+    public StringCondition isNotBlank() {
+        if (StringUtils.isNotBlank(string))
+            throw new ConditionViolationException("String " + string + " failed condition by being blank");
+        return this;
+    }
+
+    public StringCondition isBlank() {
+        if (StringUtils.isBlank(string))
+            throw new ConditionViolationException("String " + string + " failed condition by being not blank");
+        return this;
+    }
+
+    public StringCondition isNotEmpty() {
+        if (StringUtils.isNotEmpty(string))
+            throw new ConditionViolationException("String " + string + " failed condition by being not blank");
+        return this;
+    }
+
+    public StringCondition isEmpty() {
+        if (StringUtils.isEmpty(string))
+            throw new ConditionViolationException("String " + string + " failed condition by being not blank");
+        return this;
+    }
+
+    public StringCondition isAllLowerCase() {
+        if (!StringUtils.isAllLowerCase(string))
+            throw new ConditionViolationException("String " + string + " failed condition by not being all lower case");
+        return this;
+    }
+
+    public StringCondition isAllUpperCase() {
+        if (!StringUtils.isAllUpperCase(string))
+            throw new ConditionViolationException("String " + string + " failed condition by not being all upper case");
+        return this;
+    }
+
+    public StringCondition isAlpha() {
         if (StringUtils.isAlpha(string))
-            throw new ConditionViolationException("string [" + string + "] violated condition by being not all alpha");
+            throw new ConditionViolationException("String " + string
+                    + " failed condition by not being only alphabetical characters");
+        return this;
+    }
+
+    public StringCondition isAlphanumeric() {
+        if (StringUtils.isAlphanumeric(string))
+            throw new ConditionViolationException("String " + string + " failed condition by being not alphanumeric");
         return this;
     }
 }
