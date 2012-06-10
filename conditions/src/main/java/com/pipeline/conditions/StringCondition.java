@@ -20,11 +20,12 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * @author Travis Rasor
  */
-public class StringCondition extends Condition {
+public class StringCondition extends ObjectCondition {
 
     final String string;
 
     public StringCondition(String str) {
+        super(str);
         this.string = str;
     }
 

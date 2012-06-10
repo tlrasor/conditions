@@ -20,11 +20,12 @@ import java.util.Collection;
 /**
  * @author Travis Rasor
  */
-public class CollectionCondition extends Condition {
+public class CollectionCondition extends ObjectCondition {
 
     final Collection<?> collection;
 
     public CollectionCondition(Collection<?> collection) {
+        super(collection);
         this.collection = collection;
     }
 
