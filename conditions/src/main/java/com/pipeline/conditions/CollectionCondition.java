@@ -18,47 +18,58 @@ package com.pipeline.conditions;
 import java.util.Collection;
 
 /**
+ * A condition for collection types
+ * 
  * @author Travis Rasor
  */
 public class CollectionCondition extends ObjectCondition {
 
-    final Collection<?> collection;
+    private final Collection<?> collection;
 
     public CollectionCondition(Collection<?> collection) {
         super(collection);
         this.collection = collection;
     }
 
+    /**
+     * Requires the collection to be empty
+     */
     public CollectionCondition isEmpty() {
         if (!collection.isEmpty())
             throw new ConditionViolationException("collection violated condition by being populated");
         return this;
     }
 
+    /**
+     * Requires the collection to be populated
+     */
     public CollectionCondition isNotEmpty() {
         if (collection.isEmpty())
             throw new ConditionViolationException("collection violated condition by being empty");
         return this;
     }
 
+    /**
+     * Requires the collection to be of a given size
+     */
     public CollectionCondition hasSize(int size) {
         if (collection.size() != size)
-            throw new ConditionViolationException("collection violated condition by of incorrect size");
+            throw new ConditionViolationException("collection violated condition by being of incorrect size");
         return this;
     }
 
+    /**
+     * Requires the collection contains a given element
+     */
     public CollectionCondition contains(Object obj) {
         if (!collection.contains(obj))
-            throw new ConditionViolationException("collection violated condition by of incorrect size");
+            throw new ConditionViolationException("collection violated condition by not containing " + obj);
         return this;
     }
 
-    public CollectionCondition areAllNotNull() {
-        for (Object o : collection)
-            Condition.that(o).isNotNull();
-        return this;
-    }
-
+    /**
+     * Requires the collection contains no nulls
+     */
     public CollectionCondition containsNoNulls() {
         for (Object o : collection)
             Condition.that(o).isNotNull();

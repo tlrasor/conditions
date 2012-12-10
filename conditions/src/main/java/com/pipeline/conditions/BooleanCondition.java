@@ -16,16 +16,21 @@
 package com.pipeline.conditions;
 
 /**
+ * A condition for boolean checks
+ * 
  * @author Travis Rasor
  */
 public class BooleanCondition extends Condition {
 
-    final boolean condition;
+    private final boolean condition;
 
     public BooleanCondition(boolean condition) {
         this.condition = condition;
     }
 
+    /**
+     * Requires that the statement evaluates to true
+     */
     public BooleanCondition isTrue() {
         if (!condition) {
             throw new ConditionViolationException("boolean condition was false", new IllegalStateException());
@@ -33,9 +38,12 @@ public class BooleanCondition extends Condition {
         return this;
     }
 
+    /**
+     * Requires that the statement evaluates to false
+     */
     public BooleanCondition isFalse() {
         if (condition) {
-            throw new ConditionViolationException("boolean condition was false", new IllegalStateException());
+            throw new ConditionViolationException("boolean condition was true", new IllegalStateException());
         }
         return this;
     }

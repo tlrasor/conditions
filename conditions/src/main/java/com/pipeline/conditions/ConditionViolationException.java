@@ -16,6 +16,8 @@
 package com.pipeline.conditions;
 
 /**
+ * A exception indicating the failure of a condition
+ * 
  * @author Travis Rasor
  */
 public class ConditionViolationException extends RuntimeException {

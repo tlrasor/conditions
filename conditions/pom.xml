@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.pipeline</groupId>
 	<artifactId>conditions</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Conditions</name>
 	<description>Conditions classes</description>
 
@@ -12,7 +12,6 @@
 		<slf4j-api-version>1.6.1</slf4j-api-version>
 		<commons-lang3-version>3.1</commons-lang3-version>
 		<mockito-version>1.9.0</mockito-version>
-		<slf4j-log4j12-version>1.6.1</slf4j-log4j12-version>
 		<logback-version>1.0.3</logback-version>
 	</properties>
 
@@ -60,5 +59,7 @@
 			<artifactId>logback-classic</artifactId>
 			<version>${logback-version}</version>
 		</dependency>
+		
+		
 	</dependencies>
 </project>

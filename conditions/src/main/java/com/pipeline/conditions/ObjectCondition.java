@@ -29,26 +29,26 @@ public class ObjectCondition extends Condition {
     }
 
     public ObjectCondition isNotNull() {
-        if (object == null)
-            throw new ConditionViolationException("object condition failed by null object", new NullPointerException());
+        if (object == null) throw new ConditionViolationException("object was null", new NullPointerException());
         return this;
     }
 
     public ObjectCondition isNull() {
-        if (object != null)
-            throw new ConditionViolationException("object condition failed by null object", new NullPointerException());
+        if (object != null) throw new ConditionViolationException("object was not null", new NullPointerException());
         return this;
     }
 
     public ObjectCondition isEqualTo(Object other) {
         if (!object.equals(other))
-            throw new ConditionViolationException("object condition failed by null object", new NullPointerException());
+            throw new ConditionViolationException("object " + object.toString() + " was not equal to "
+                    + other.toString(), new IllegalStateException());
         return this;
     }
 
     public ObjectCondition isNotEqualTo(Object other) {
         if (object.equals(other))
-            throw new ConditionViolationException("object condition failed by null object", new NullPointerException());
+            throw new ConditionViolationException("object " + object.toString() + " was equal to " + other.toString(),
+                    new IllegalStateException());
         return this;
     }
 }

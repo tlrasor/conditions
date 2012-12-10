@@ -38,6 +38,10 @@ public class Condition {
         return new StringCondition(string);
     }
 
+    public static IntegerCondition that(int i) {
+        return new IntegerCondition(i);
+    }
+
     public BooleanCondition andThat(boolean expression) {
         return new BooleanCondition(expression);
     }
@@ -51,7 +55,10 @@ public class Condition {
     }
 
     public StringCondition andThat(String string) {
-        Condition.that((Object) string).isNotNull();
         return new StringCondition(string);
+    }
+
+    public IntegerCondition andThat(int i) {
+        return new IntegerCondition(i);
     }
 }
