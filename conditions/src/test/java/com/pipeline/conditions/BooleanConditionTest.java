@@ -24,26 +24,22 @@ public class BooleanConditionTest {
 
     @Test
     public void testIsTrue() throws Exception {
-        BooleanCondition condition = new BooleanCondition(true);
-        condition.isTrue();
+        BooleanCondition.that(true).isTrue();
     }
 
     @Test
     public void testIsFalse() throws Exception {
-        BooleanCondition condition = new BooleanCondition(false);
-        condition.isFalse();
+        BooleanCondition.that(false).isFalse();
     }
 
     @Test(expected = ConditionViolationException.class)
     public void testFailIsTrue() throws Exception {
-        BooleanCondition condition = new BooleanCondition(false);
-        condition.isTrue();
+        BooleanCondition.that(false).isTrue();
     }
 
     @Test(expected = ConditionViolationException.class)
     public void testFailIsFalse() throws Exception {
-        BooleanCondition condition = new BooleanCondition(true);
-        condition.isFalse();
+        BooleanCondition.that(true).isFalse();
     }
 
 }

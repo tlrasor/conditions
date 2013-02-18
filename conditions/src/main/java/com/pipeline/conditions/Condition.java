@@ -18,9 +18,11 @@ package com.pipeline.conditions;
 import java.util.Collection;
 
 /**
+ * Base class for conditions. Used to chain multiple checks together.
+ * 
  * @author Travis Rasor
  */
-public class Condition {
+public abstract class Condition {
 
     public static BooleanCondition that(boolean condition) {
         return new BooleanCondition(condition);

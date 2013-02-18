@@ -16,8 +16,12 @@
 package com.pipeline.conditions;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
+ * Conditions for strings
+ * 
  * @author Travis Rasor
  */
 public class StringCondition extends ObjectCondition {
@@ -30,57 +34,90 @@ public class StringCondition extends ObjectCondition {
     }
 
     public StringCondition isNotBlankOrEmpty() {
-        if (StringUtils.isNotBlank(string) || StringUtils.isNotEmpty(string))
-            throw new ConditionViolationException("string violated condition by being empty or blank");
+        return isNotBlankOrEmpty(null);
+    }
+
+    public StringCondition isNotBlankOrEmpty(String detail) {
+        if (StringUtils.isBlank(string) || StringUtils.isEmpty(string)) throwException("empty or not blank", detail);
         return this;
     }
 
     public StringCondition isNotBlank() {
-        if (StringUtils.isNotBlank(string))
-            throw new ConditionViolationException("String " + string + " failed condition by being blank");
+        return isNotBlank(null);
+    }
+
+    public StringCondition isNotBlank(String detail) {
+        if (StringUtils.isBlank(string)) throwException("blank", detail);
         return this;
     }
 
     public StringCondition isBlank() {
-        if (StringUtils.isBlank(string))
-            throw new ConditionViolationException("String " + string + " failed condition by being not blank");
+        return isBlank(null);
+    }
+
+    public StringCondition isBlank(String detail) {
+        if (StringUtils.isNotBlank(string)) throwException("not blank", detail);
         return this;
     }
 
     public StringCondition isNotEmpty() {
-        if (StringUtils.isNotEmpty(string))
-            throw new ConditionViolationException("String " + string + " failed condition by being not blank");
+        return isNotEmpty(null);
+    }
+
+    public StringCondition isNotEmpty(String detail) {
+        if (StringUtils.isEmpty(string)) throwException("not empty", detail);
         return this;
     }
 
     public StringCondition isEmpty() {
-        if (StringUtils.isEmpty(string))
-            throw new ConditionViolationException("String " + string + " failed condition by being not blank");
+        return isEmpty(null);
+    }
+
+    public StringCondition isEmpty(String detail) {
+        if (StringUtils.isNotEmpty(string)) throwException("empty", detail);
         return this;
     }
 
     public StringCondition isAllLowerCase() {
-        if (!StringUtils.isAllLowerCase(string))
-            throw new ConditionViolationException("String " + string + " failed condition by not being all lower case");
+        return isAllLowerCase(null);
+    }
+
+    public StringCondition isAllLowerCase(String detail) {
+        if (!StringUtils.isAllLowerCase(string)) throwException("not all lower case", detail);
         return this;
     }
 
     public StringCondition isAllUpperCase() {
         if (!StringUtils.isAllUpperCase(string))
-            throw new ConditionViolationException("String " + string + " failed condition by not being all upper case");
+            throw new ConditionViolationException("String [" + string + "] was not being all upper case");
         return this;
     }
 
     public StringCondition isAlpha() {
-        if (StringUtils.isAlpha(string))
-            throw new ConditionViolationException("String " + string
-                    + " failed condition by not being only alphabetical characters");
+        return isAlpha(null);
+    }
+
+    public StringCondition isAlpha(String detail) {
+        if (!StringUtils.isAlpha(string)) throwException("not only alphabetical characters", detail);
         return this;
     }
 
     public StringCondition isAlphanumeric() {
-        if (StringUtils.isAlphanumeric(string))
-            throw new ConditionViolationException("String " + string + " failed condition by being not alphanumeric");
+        return isAlphanumeric(null);
+    }
+
+    public StringCondition isAlphanumeric(String detail) {
+        if (!StringUtils.isAlphanumeric(string)) throwException("not alphanumeric", detail);
         return this;
+    }
+
+    private void throwException(String cause, String detail) {
+        String causeStr = new StringBuilder(50).append("[").append(string).append("] was ").append(cause).toString();
+        throw new ConditionViolationException(causeStr, detail);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.NO_FIELD_NAMES_STYLE).append("string", string).build();
     }
 }

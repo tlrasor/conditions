@@ -15,6 +15,9 @@
  */
 package com.pipeline.conditions;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -26,75 +29,89 @@ import org.junit.Test;
 public class CollectionConditionTest {
 
     @Test
+    public void testCapture() {
+        Collection<Object> collection = Arrays.asList(new Object());
+        CollectionCondition condition = CollectionCondition.that(collection);
+        assertEquals(collection, condition.collection);
+    }
+
+    @Test(expected = ConditionViolationException.class)
+    public void testDetailMessage() {
+        try {
+            Collection<Object> collection = Arrays.asList(new Object());
+            CollectionCondition.that(collection).isEmpty("test detail");
+        } catch (ConditionViolationException e) {
+            assertTrue(e.getMessage().contains("test detail"));
+            throw e;
+        }
+    }
+
+    @Test
     public void testIsEmpty() throws Exception {
         Collection<Object> collection = Arrays.asList();
-        CollectionCondition condition = new CollectionCondition(collection);
-        condition.isEmpty();
+        CollectionCondition.that(collection).isEmpty();
     }
 
     @Test
     public void testIsNotEmpty() throws Exception {
         Collection<Object> collection = Arrays.asList(new Object());
-        CollectionCondition condition = new CollectionCondition(collection);
-        condition.isNotEmpty();
+        CollectionCondition.that(collection).isNotEmpty();
     }
 
     @Test
     public void testHasSize() throws Exception {
         Collection<Object> collection = Arrays.asList(new Object(), new Object(), new Object());
-        CollectionCondition condition = new CollectionCondition(collection);
-        condition.hasSize(3);
+        CollectionCondition.that(collection).hasSize(3);
+    }
+
+    @Test
+    public void testHasSizeZero() throws Exception {
+        Collection<Object> collection = Arrays.asList();
+        CollectionCondition.that(collection).hasSize(0);
     }
 
     @Test
     public void testContains() throws Exception {
         Object o = new Object();
         Collection<Object> collection = Arrays.asList(new Object(), o);
-        CollectionCondition condition = new CollectionCondition(collection);
-        condition.contains(o);
+        CollectionCondition.that(collection).contains(o);
     }
 
     @Test
     public void testContainsNoNulls() throws Exception {
         Collection<Object> collection = Arrays.asList(new Object(), new Object());
-        CollectionCondition condition = new CollectionCondition(collection);
-        condition.containsNoNulls();
+        CollectionCondition.that(collection).containsNoNulls();
     }
 
     @Test(expected = ConditionViolationException.class)
     public void testFailIsEmpty() throws Exception {
         Collection<Object> collection = Arrays.asList(new Object());
-        CollectionCondition condition = new CollectionCondition(collection);
-        condition.isEmpty();
+        CollectionCondition.that(collection).isEmpty();
     }
 
     @Test(expected = ConditionViolationException.class)
     public void testFailIsNotEmpty() throws Exception {
         Collection<Object> collection = Arrays.asList();
-        CollectionCondition condition = new CollectionCondition(collection);
-        condition.isNotEmpty();
+        CollectionCondition.that(collection).isNotEmpty();
     }
 
     @Test(expected = ConditionViolationException.class)
     public void testFailHasSize() throws Exception {
         Collection<Object> collection = Arrays.asList(new Object(), new Object());
-        CollectionCondition condition = new CollectionCondition(collection);
-        condition.hasSize(3);
+        CollectionCondition.that(collection).hasSize(3);
     }
 
     @Test(expected = ConditionViolationException.class)
     public void testFailContains() throws Exception {
         Object o = new Object();
         Collection<Object> collection = Arrays.asList(new Object());
-        CollectionCondition condition = new CollectionCondition(collection);
-        condition.contains(o);
+        CollectionCondition.that(collection).contains(o);
     }
 
     @Test(expected = ConditionViolationException.class)
     public void testFailContainsNoNulls() throws Exception {
         Collection<Object> collection = Arrays.asList(new Object(), null, new Object());
-        CollectionCondition condition = new CollectionCondition(collection);
-        condition.containsNoNulls();
+        CollectionCondition.that(collection).containsNoNulls();
     }
 
 }

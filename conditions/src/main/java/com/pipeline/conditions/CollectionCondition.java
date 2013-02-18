@@ -17,6 +17,9 @@ package com.pipeline.conditions;
 
 import java.util.Collection;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * A condition for collection types
  * 
@@ -24,9 +27,9 @@ import java.util.Collection;
  */
 public class CollectionCondition extends ObjectCondition {
 
-    private final Collection<?> collection;
+    final Collection<?> collection;
 
-    public CollectionCondition(Collection<?> collection) {
+    CollectionCondition(Collection<?> collection) {
         super(collection);
         this.collection = collection;
     }
@@ -35,17 +38,29 @@ public class CollectionCondition extends ObjectCondition {
      * Requires the collection to be empty
      */
     public CollectionCondition isEmpty() {
-        if (!collection.isEmpty())
-            throw new ConditionViolationException("collection violated condition by being populated");
+        return isEmpty(null);
+    }
+
+    /**
+     * Requires the collection to be empty
+     */
+    public CollectionCondition isEmpty(String detail) {
+        if (!collection.isEmpty()) throw new ConditionViolationException("collection was not empty", detail);
         return this;
     }
 
     /**
-     * Requires the collection to be populated
+     * Requires the collection to be not empty
      */
     public CollectionCondition isNotEmpty() {
-        if (collection.isEmpty())
-            throw new ConditionViolationException("collection violated condition by being empty");
+        return isNotEmpty(null);
+    }
+
+    /**
+     * Requires the collection to be not empty
+     */
+    public CollectionCondition isNotEmpty(String detail) {
+        if (collection.isEmpty()) throw new ConditionViolationException("collection was empty", detail);
         return this;
     }
 
@@ -53,26 +68,70 @@ public class CollectionCondition extends ObjectCondition {
      * Requires the collection to be of a given size
      */
     public CollectionCondition hasSize(int size) {
+        return hasSize(size, null);
+    }
+
+    /**
+     * Requires the collection to be of a given size
+     */
+    public CollectionCondition hasSize(int size, String detail) {
         if (collection.size() != size)
-            throw new ConditionViolationException("collection violated condition by being of incorrect size");
+            throw new ConditionViolationException(buildHasSizeCause(size, collection.size()), detail);
         return this;
+    }
+
+    private String buildHasSizeCause(int expected, int actual) {
+        StringBuilder sb = new StringBuilder(50);
+        sb.append("collection size expected [").append(expected).append("] but actual [").append(actual).append("]");
+        return sb.toString();
     }
 
     /**
      * Requires the collection contains a given element
      */
     public CollectionCondition contains(Object obj) {
-        if (!collection.contains(obj))
-            throw new ConditionViolationException("collection violated condition by not containing " + obj);
+        return contains(obj, null);
+    }
+
+    /**
+     * Requires the collection contains a given element
+     */
+    public CollectionCondition contains(Object obj, String detail) {
+        if (!collection.contains(obj)) throw new ConditionViolationException(buildContainsCause(obj), detail);
         return this;
+    }
+
+    private String buildContainsCause(Object expected) {
+        StringBuilder sb = new StringBuilder(80);
+        sb.append("collection [").append(collection).append("] did not contain [").append(expected).append("]");
+        return sb.toString();
     }
 
     /**
      * Requires the collection contains no nulls
      */
     public CollectionCondition containsNoNulls() {
+        return containsNoNulls(null);
+    }
+
+    /**
+     * Requires the collection contains no nulls
+     */
+    public CollectionCondition containsNoNulls(String detail) {
         for (Object o : collection)
-            Condition.that(o).isNotNull();
+            if (o == null)
+                throw new ConditionViolationException(buildContainsNoNullsCause(), detail, new NullPointerException());
         return this;
+    }
+
+    private String buildContainsNoNullsCause() {
+        StringBuilder sb = new StringBuilder(50);
+        sb.append("collection [").append(collection).append("] contained a null object");
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.NO_FIELD_NAMES_STYLE).append(collection).build();
     }
 }

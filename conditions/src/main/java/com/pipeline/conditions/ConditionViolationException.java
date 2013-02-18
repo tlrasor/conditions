@@ -15,6 +15,8 @@
  */
 package com.pipeline.conditions;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * A exception indicating the failure of a condition
  * 
@@ -24,16 +26,40 @@ public class ConditionViolationException extends RuntimeException {
 
     private static final long serialVersionUID = 12431456235L;
 
+    private final String cause, detail;
+
     public ConditionViolationException() {
-        super();
+        this(null);
     }
 
-    public ConditionViolationException(String message) {
-        super(message);
+    public ConditionViolationException(String cause) {
+        this(null, null);
     }
 
-    public ConditionViolationException(String message, Throwable t) {
-        super(message, t);
+    public ConditionViolationException(String cause, String detail) {
+        this(null, null, null);
     }
 
+    public ConditionViolationException(String cause, String detail, Throwable t) {
+        super(t);
+        this.cause = cause;
+        this.detail = detail;
+    }
+
+    @Override
+    public String getMessage() {
+        StringBuilder sb = new StringBuilder(80);
+        sb.append("Cause:");
+        if (StringUtils.isNotBlank(cause)) sb.append("\'").append(cause).append("\'");
+        if (StringUtils.isNotBlank(detail)) sb.append(" Detail:").append("\'").append(detail).append("\'");
+        return sb.toString();
+    }
+
+    public String getCauseMessage() {
+        return cause;
+    }
+
+    public String getDetailMessage() {
+        return detail;
+    }
 }

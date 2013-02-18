@@ -16,57 +16,88 @@
 package com.pipeline.conditions;
 
 /**
+ * Conditions for simple integer based conditions
+ * 
  * @author Travis Rasor
  */
 public class IntegerCondition extends Condition {
 
     private final int num;
 
-    public IntegerCondition(int num) {
+    IntegerCondition(int num) {
         this.num = num;
     }
 
     public IntegerCondition isEqualTo(int other) {
-        if (num != other) throwException(other, num);
+        return isEqualTo(other, null);
+    }
+
+    public IntegerCondition isEqualTo(int other, String detail) {
+        if (num != other) throwException(String.valueOf(other), num, detail);
         return this;
     }
 
     public IntegerCondition isNotEqualTo(int other) {
-        if (num == other) throwException("!" + other, num);
+        return isNotEqualTo(other, null);
+    }
+
+    public IntegerCondition isNotEqualTo(int other, String detail) {
+        if (num == other) throwException("!" + other, num, detail);
         return this;
     }
 
     public IntegerCondition isGreaterThan(int other) {
-        if (num <= other) throwException(">" + other, num);
+        return isGreaterThan(other, null);
+    }
+
+    public IntegerCondition isGreaterThan(int other, String detail) {
+        if (num <= other) throwException(">" + other, num, detail);
         return this;
     }
 
     public IntegerCondition isLessThan(int other) {
-        if (num >= other) throwException("<" + other, num);
+        return isLessThan(other, null);
+    }
+
+    public IntegerCondition isLessThan(int other, String detail) {
+        if (num >= other) throwException("<" + other, num, detail);
         return this;
     }
 
     public IntegerCondition isZero() {
-        return isEqualTo(0);
+        return isZero(null);
+    }
+
+    public IntegerCondition isZero(String detail) {
+        return isEqualTo(0, detail);
     }
 
     public IntegerCondition isNotZero() {
-        return isNotEqualTo(0);
+        return isNotZero(null);
+    }
+
+    public IntegerCondition isNotZero(String detail) {
+        return isNotEqualTo(0, detail);
     }
 
     public IntegerCondition isGreaterThanZero() {
-        return isGreaterThan(0);
+        return isGreaterThanZero(null);
+    }
+
+    public IntegerCondition isGreaterThanZero(String detail) {
+        return isGreaterThan(0, detail);
     }
 
     public IntegerCondition isLessThanZero() {
-        return isLessThan(0);
+        return isLessThanZero(null);
     }
 
-    void throwException(String expected, int received) {
-        throw new ConditionViolationException("expected value of " + expected + " but received " + received);
+    public IntegerCondition isLessThanZero(String detail) {
+        return isLessThan(0, detail);
     }
 
-    void throwException(int expected, int received) {
-        throw new ConditionViolationException("expected value of " + expected + " but received " + received);
+    private void throwException(String expected, int received, String detail) {
+        throw new ConditionViolationException("expected value of " + expected + " but received " + received, detail);
     }
+
 }

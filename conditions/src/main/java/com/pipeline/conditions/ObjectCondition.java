@@ -15,6 +15,9 @@
  */
 package com.pipeline.conditions;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * Conditions for object references
  * 
@@ -29,26 +32,51 @@ public class ObjectCondition extends Condition {
     }
 
     public ObjectCondition isNotNull() {
-        if (object == null) throw new ConditionViolationException("object was null", new NullPointerException());
+        return isNotNull(null);
+    }
+
+    public ObjectCondition isNotNull(String detail) {
+        if (object == null)
+            throw new ConditionViolationException("object was null", detail, new NullPointerException());
         return this;
     }
 
     public ObjectCondition isNull() {
-        if (object != null) throw new ConditionViolationException("object was not null", new NullPointerException());
+        return isNull(null);
+    }
+
+    public ObjectCondition isNull(String detail) {
+        if (object != null)
+            throw new ConditionViolationException("object was not null", detail, new IllegalStateException());
         return this;
     }
 
     public ObjectCondition isEqualTo(Object other) {
+        return isEqualTo(other, null);
+    }
+
+    public ObjectCondition isEqualTo(Object other, String detail) {
         if (!object.equals(other))
-            throw new ConditionViolationException("object " + object.toString() + " was not equal to "
-                    + other.toString(), new IllegalStateException());
+            throw new ConditionViolationException("object [" + object.toString() + "] was not equal to "
+                    + other.toString(), detail, new IllegalStateException());
         return this;
     }
 
     public ObjectCondition isNotEqualTo(Object other) {
+        return isNotEqualTo(other, null);
+    }
+
+    public ObjectCondition isNotEqualTo(Object other, String detail) {
         if (object.equals(other))
-            throw new ConditionViolationException("object " + object.toString() + " was equal to " + other.toString(),
+            throw new ConditionViolationException(
+                    "object [" + object.toString() + "] was equal to " + other.toString(), detail,
                     new IllegalStateException());
         return this;
     }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.NO_FIELD_NAMES_STYLE).append(object).build();
+    }
+
 }

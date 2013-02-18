@@ -24,7 +24,7 @@ public class BooleanCondition extends Condition {
 
     private final boolean condition;
 
-    public BooleanCondition(boolean condition) {
+    BooleanCondition(boolean condition) {
         this.condition = condition;
     }
 
@@ -32,8 +32,15 @@ public class BooleanCondition extends Condition {
      * Requires that the statement evaluates to true
      */
     public BooleanCondition isTrue() {
+        return isTrue(null);
+    }
+
+    /**
+     * Requires that the statement evaluates to true
+     */
+    public BooleanCondition isTrue(String detail) {
         if (!condition) {
-            throw new ConditionViolationException("boolean condition was false", new IllegalStateException());
+            throw new ConditionViolationException("boolean condition was false", detail, new IllegalStateException());
         }
         return this;
     }
@@ -42,14 +49,21 @@ public class BooleanCondition extends Condition {
      * Requires that the statement evaluates to false
      */
     public BooleanCondition isFalse() {
+        return isFalse(null);
+    }
+
+    /**
+     * Requires that the statement evaluates to false
+     */
+    public BooleanCondition isFalse(String detail) {
         if (condition) {
-            throw new ConditionViolationException("boolean condition was true", new IllegalStateException());
+            throw new ConditionViolationException("boolean condition was true", detail, new IllegalStateException());
         }
         return this;
     }
 
     @Override
     public String toString() {
-        return "BooleanCondition [condition=" + condition + "]";
+        return "BooleanCondition [" + condition + "]";
     }
 }
