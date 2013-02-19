@@ -37,7 +37,7 @@ public class ConditionViolationException extends RuntimeException {
     }
 
     public ConditionViolationException(String cause, String detail) {
-        this(null, null, null);
+        this(cause, detail, null);
     }
 
     public ConditionViolationException(String cause, String detail, Throwable t) {

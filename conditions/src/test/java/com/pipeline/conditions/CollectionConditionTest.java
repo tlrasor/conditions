@@ -16,12 +16,13 @@
 package com.pipeline.conditions;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Travis Rasor
@@ -35,16 +36,7 @@ public class CollectionConditionTest {
         assertEquals(collection, condition.collection);
     }
 
-    @Test(expected = ConditionViolationException.class)
-    public void testDetailMessage() {
-        try {
-            Collection<Object> collection = Arrays.asList(new Object());
-            CollectionCondition.that(collection).isEmpty("test detail");
-        } catch (ConditionViolationException e) {
-            assertTrue(e.getMessage().contains("test detail"));
-            throw e;
-        }
-    }
+    private static final Logger log = LoggerFactory.getLogger(CollectionConditionTest.class);
 
     @Test
     public void testIsEmpty() throws Exception {
