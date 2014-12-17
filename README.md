@@ -1,11 +1,20 @@
 conditions
 ==========
 
-Simple runtime conditions classes for java
+Simple runtime conditions classes for java written in groovy.
+
+This library implements a simple DSL to help support [Design by Contract], similar 
+to [guava's Preconditions class] or [Microsoft Research's Code Contracts] library.
+
+[Design by Contract]: http://en.wikipedia.org/wiki/Design_by_contract
+[guava's Preconditions class]: https://code.google.com/p/guava-libraries/wiki/PreconditionsExplained
+[Microsoft Research's Code Contracts]: http://research.microsoft.com/en-us/projects/contracts/
 
 Some examples need to live here... Check out the unit tests!
 
-Copyright 2015 Travis Rasor
+contracts uses Travis CI for [builds](https://travis-ci.org/tlrasor/conditions)
+
+Copyright 2014 Travis Rasor
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
