@@ -1,9 +1,11 @@
 conditions
 ==========
 
-simple runtime conditions classes for java
+Simple runtime conditions classes for java
 
-Copyright 2012 Travis Rasor
+Some examples need to live here... Check out the unit tests!
+
+Copyright 2015 Travis Rasor
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

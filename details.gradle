@@ -1,0 +1,5 @@
+ext {
+  authorName = "Travis Rasor"
+  authorEmail = "travis@thathanka.org"
+  codeRepo = "http://github.com/tlrasor/conditions"
+}

@@ -1,0 +1,18 @@
+ext {
+  
+  //versions
+  commonslang3Version = "3.3.2"
+  groovyVersion = "2.3.8"
+  junitVersion = "4.12"
+  logbackVersion = "1.1.2"
+  slf4jVersion = "1.7.7"
+  
+
+  libraries = [
+    commonslang3: "org.apache.commons:commons-lang3:$commonslang3Version",
+    groovy: "org.codehaus.groovy:groovy-all:$groovyVersion",
+    junit: "junit:junit:$junitVersion",
+    logback: "ch.qos.logback:logback-classic:$logbackVersion",
+    slf4j: "org.slf4j:slf4j-api:$slf4jVersion"
+  ]
+}
