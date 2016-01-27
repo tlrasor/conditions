@@ -3,7 +3,7 @@ apply plugin: 'findbugs'
 apply from: './libraries.gradle'
 
 group = 'com.pipeline'
-version = '2.1-SNAPSHOT'
+version = '2.2-SNAPSHOT'
 
 repositories {
     jcenter()
