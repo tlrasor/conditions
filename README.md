@@ -1,10 +1,7 @@
 conditions
 ==========
 
-Simple runtime design by contract DSL written in [groovy].
-
-This library implements a simple DSL to help support [Design by Contract], similar 
-to [guava's Preconditions class] or [Microsoft Research's Code Contracts] library.
+This library implements a simple DSL to help support [Design by Contract], similar to [guava's Preconditions class] or [Microsoft Research's Code Contracts] library written in [groovy] for the JVM.
 
 ## Usage
 
