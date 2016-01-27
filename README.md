@@ -3,6 +3,10 @@ conditions
 
 This library implements a simple DSL to help support [Design by Contract], similar to [guava's Preconditions class] or [Microsoft Research's Code Contracts] library written in [groovy] for the JVM.
 
+### Status
+[![Build Status](https://travis-ci.org/tlrasor/conditions.svg?branch=master)](https://travis-ci.org/tlrasor/conditions)
+
+
 ## Usage
 
 Conditions is a fluent API for doing design by contract like conditions. Unlike many Java ecosystem DbC frameworks, conditions is not based on static methods and assert statements and but is instead fully object oriented and uses regular Java exceptions to signal errors. This aspect allows it to better fit into a 'traditional' Java paradigm and makes the system very easy to reason about. Many frameworks are somewhat complicated, using annotations and clunky contexts, conditions is designed to be as simple and plain as possible.
