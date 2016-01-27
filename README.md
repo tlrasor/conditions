@@ -37,14 +37,14 @@ def getConnection(Session s) {
 
 For more details, the unit tests section is fairly complete with examples of use for each of the supported condition types.
 
-contracts uses Travis CI for [builds]
+contracts uses Travis CI for [builds].
 
-Copyright 2016 Travis Rasor [MIT License]([tldr])
+Copyright 2016 Travis Rasor [MIT License], [tldr].
 
 [groovy]: https://github.com/apache/groovy
 [Design by Contract]: http://en.wikipedia.org/wiki/Design_by_contract
 [guava's Preconditions class]: https://code.google.com/p/guava-libraries/wiki/PreconditionsExplained
 [Microsoft Research's Code Contracts]: http://research.microsoft.com/en-us/projects/contracts/
-[builds]: (https://travis-ci.org/tlrasor/conditions)
+[builds]: https://travis-ci.org/tlrasor/conditions
 [MIT License]: https://opensource.org/licenses/MIT
 [tldr]: https://tldrlegal.com/license/mit-license
