@@ -1,29 +1,54 @@
 conditions
 ==========
 
-Simple runtime conditions classes for java written in groovy.
+This library implements a simple DSL to help support [Design by Contract], similar to [guava's Preconditions class] or [Microsoft Research's Code Contracts] library written in [groovy] for the JVM.
 
-This library implements a simple DSL to help support [Design by Contract], similar 
-to [guava's Preconditions class] or [Microsoft Research's Code Contracts] library.
+### Status
+[![Build Status](https://travis-ci.org/tlrasor/conditions.svg?branch=master)](https://travis-ci.org/tlrasor/conditions)
 
+
+## Usage
+
+Conditions is a fluent API for doing design by contract like conditions. Unlike many Java ecosystem DbC frameworks, conditions is not based on static methods and assert statements and but is instead fully object oriented and uses regular Java exceptions to signal errors. This aspect allows it to better fit into a 'traditional' Java paradigm and makes the system very easy to reason about. Many frameworks are somewhat complicated, using annotations and clunky contexts, conditions is designed to be as simple and plain as possible.
+
+Several different types of conditions are supported:
+
+- Object
+- Boolean
+- Integer
+- String
+- Collection
+
+It is trivial to add support for more classes by extending the ObjectCondition class.
+
+Here are several examples of using the conditions DSL:
+
+```groovy
+// Simple boolean conditions are easy to construct
+Condition.that((1+1)==2).isTrue()
+
+// use try catches to recover from failures
+def getConnection(Session s) {
+    try {
+        Condition.that(s.isOpen()).isTrue()
+    } catch (ConditionViolationException e) {
+        reopenSession(s)
+        return getConnection(s)
+    }
+}
+
+```
+
+For more details, the unit tests section is fairly complete with examples of use for each of the supported condition types.
+
+contracts uses Travis CI for [builds].
+
+Copyright 2016 Travis Rasor [MIT License], [tldr].
+
+[groovy]: https://github.com/apache/groovy
 [Design by Contract]: http://en.wikipedia.org/wiki/Design_by_contract
 [guava's Preconditions class]: https://code.google.com/p/guava-libraries/wiki/PreconditionsExplained
 [Microsoft Research's Code Contracts]: http://research.microsoft.com/en-us/projects/contracts/
-
-Some examples need to live here... Check out the unit tests!
-
-contracts uses Travis CI for [builds](https://travis-ci.org/tlrasor/conditions)
-
-Copyright 2014 Travis Rasor
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+[builds]: https://travis-ci.org/tlrasor/conditions
+[MIT License]: https://opensource.org/licenses/MIT
+[tldr]: https://tldrlegal.com/license/mit-license

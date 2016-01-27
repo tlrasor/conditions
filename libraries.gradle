@@ -2,7 +2,7 @@ ext {
   
   //versions
   commonslang3Version = "3.3.2"
-  groovyVersion = "2.3.8"
+  groovyVersion = "2.4.5"
   junitVersion = "4.12"
   logbackVersion = "1.1.2"
   slf4jVersion = "1.7.7"

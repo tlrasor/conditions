@@ -11,6 +11,7 @@ import groovy.transform.TupleConstructor
  */
 @TupleConstructor
 @ToString
+@CompileStatic
 class ObjectCondition extends Condition {
 
     final Object object;

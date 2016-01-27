@@ -1,9 +1,8 @@
 apply plugin: 'groovy'
-apply plugin: 'findbugs'
 apply from: './libraries.gradle'
 
 group = 'com.pipeline'
-version = '2.0'
+version = '2.1'
 
 repositories {
     jcenter()
